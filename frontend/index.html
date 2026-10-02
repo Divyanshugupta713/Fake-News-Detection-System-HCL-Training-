@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f2eb">
+  <title>P105 | Claim review</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f2f2eb;
+      --ink: #202822;
+      --muted: #65716a;
+      --line: #c9cec4;
+      --green: #315d45;
+      --orange: #d0663b;
+      --panel: #fffefa;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: radial-gradient(#b8c5b4 0.65px, transparent 0.65px);
+      background-size: 18px 18px;
+    }
+    header, main { width: min(940px, calc(100% - 40px)); margin-inline: auto; }
+    header {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { font-weight: 800; letter-spacing: 0.08em; }
+    .status { color: var(--muted); font-size: 0.88rem; }
+    main { padding-block: clamp(40px, 8vw, 86px); }
+    .eyebrow { color: var(--green); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+    h1 { max-width: 660px; margin: 12px 0 14px; font-size: clamp(2.4rem, 6vw, 4.6rem); line-height: 0.98; }
+    .intro { max-width: 620px; color: var(--muted); line-height: 1.65; }
+    form { margin-top: 34px; }
+    label { display: block; margin-bottom: 9px; font-size: 0.9rem; font-weight: 700; }
+    textarea {
+      display: block; width: 100%; min-height: 170px; resize: vertical;
+      border: 1px solid var(--line); border-radius: 4px; padding: 16px;
+      color: var(--ink); background: var(--panel); font: inherit; line-height: 1.5;
+    }
+    textarea:focus { outline: 2px solid var(--green); outline-offset: 2px; }
+    .form-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; }
+    .hint { color: var(--muted); font-size: 0.84rem; }
+    button {
+      min-height: 46px; padding: 0 20px; border: 0; border-radius: 3px;
+      color: white; background: var(--green); font: inherit; font-weight: 700; cursor: pointer;
+    }
+    button:hover { background: #254a36; }
+    button:disabled { opacity: 0.6; cursor: wait; }
+    #output { margin-top: 28px; }
+    .result-head { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 18px; }
+    .badge { border: 1px solid currentColor; border-radius: 99px; padding: 5px 10px; color: var(--orange); font-size: 0.76rem; font-weight: 800; text-transform: uppercase; }
+    .summary { margin: 12px 0 20px; color: var(--muted); }
+    .claim { padding: 15px 0; border-top: 1px solid var(--line); }
+    .claim p { margin: 7px 0; line-height: 1.5; }
+    .claim small { color: var(--muted); }
+    .error { color: #9a321f; }
+    @media (max-width: 560px) {
+      header, main { width: min(100% - 28px, 940px); }
+      .status { max-width: 155px; text-align: right; }
+      .form-footer { align-items: stretch; flex-direction: column; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">P105 / FIELDNOTES</div>
+    <div class="status">Independent evidence required</div>
+  </header>
+  <main>
+    <div class="eyebrow">Claim analysis</div>
+    <h1>Separate the claim from the noise.</h1>
+    <p class="intro">Paste an article or news report to review its checkable claims against independent search results. Verdicts include source links, and claims without enough corroboration remain uncertain.</p>
+    <form id="analyze-form">
+      <label for="claim-text">Text to review</label>
+      <textarea id="claim-text" name="text" maxlength="20000" required placeholder="Paste the article or news text here..."></textarea>
+      <div class="form-footer">
+        <span class="hint">Up to 20,000 characters; at most 8 claims are checked per article</span>
+        <button id="submit-button" type="submit">Analyze text</button>
+      </div>
+    </form>
+    <section id="output" aria-live="polite"></section>
+  </main>
+  <script src="/frontend/app.js" defer></script>
+</body>
+</html>
